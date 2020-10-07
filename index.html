@@ -1,0 +1,428 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>PWJ Netflix Clone</title>
+		<link rel="stylesheet" href="/style.css" />
+		<link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css" />
+		<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+		<script src="https://kit.fontawesome.com/c939d0e917.js"></script>
+		<script src="/userFavs.js"></script>
+		<script src="/script.js"></script>
+	</head>
+	<body>
+		<!-- https://upload.wikimedia.org/wikipedia/commons/0/08/Netflix_2015_logo.svg -->
+		<header id="navbar">
+			<div class="pinning-header">
+				<div class="pinning-header-container" style="top: 0px; position: relative; background: transparent none repeat scroll 0% 0%">
+					<div class="main-header has-billboard menu-navigation" role="navigation" style="">
+						<a aria-label="Netflix" class="logo icon-logoUpdate active" href="/">
+							<img src="/assets/images/logo.png" />
+						</a>
+						<ul class="tabbed-primary-navigation">
+							<li class="navigation-menu navigation-tab"><a class="menu-trigger" role="button" aria-haspopup="true" tabindex="0">Browse</a></li>
+							<li class="navigation-tab"><a class="current active" href="/">Home</a></li>
+							<li class="navigation-tab"><a href="/">TV Shows</a></li>
+							<li class="navigation-tab"><a href="/">Movies</a></li>
+							<li class="navigation-tab"><a href="/">Latest</a></li>
+							<li class="navigation-tab"><a href="/">My List</a></li>
+						</ul>
+						<div class="secondary-navigation">
+							<div class="nav-element">
+								<div class="searchBox">
+									<!-- <button class="searchTab" tabindex="0" aria-label="Search" data-uia="search-box-launcher"><span class="icon-search"></span></button> -->
+								</div>
+							</div>
+							<div class="nav-element show-kids">
+								<a href="/">KIDS</a>
+							</div>
+							<div class="nav-element">
+								<span class="gifts" data-tooltip="gifts-tooltip">
+									<a data-uia="action-click-gift-box" class="gifts-menu" aria-haspopup="true" aria-label="Gifts" href="/">
+										<svg viewBox="0 0 20 21" role="img" aria-labelledby="gift-box" class="gifts-menu__icon">
+											<defs><polygon id="path-1" points="9.09090909e-05 0 19.3881818 0 19.3881818 20.0960909 9.09090909e-05 20.0960909"></polygon></defs>
+											<g id="V1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+												<g id="Cell-4-2" transform="translate(-1083.000000, -24.000000)">
+													<g id="Group-3" transform="translate(1083.000000, 24.000000)">
+														<mask id="mask-2" fill="white"><use xlink:href="#path-1"></use></mask>
+														<g id="Clip-2"></g>
+														<path
+															d="M18.0246364,10.087 C18.0246364,10.1733636 17.9519091,10.2460909 17.8655455,10.2460909 L17.6782727,10.2460909 L16.3146364,10.2460909 L3.07372727,10.2460909 L1.71009091,10.2460909 L1.52281818,10.2460909 C1.43645455,10.2460909 1.36372727,10.1733636 1.36372727,10.087 L1.36372727,7.56518182 C1.36372727,7.47790909 1.43645455,7.40518182 1.52281818,7.40518182 L9.01190909,7.40518182 L14.601,7.40518182 L17.8655455,7.40518182 C17.9519091,7.40518182 18.0246364,7.47790909 18.0246364,7.56518182 L18.0246364,10.087 Z M16.3146364,18.6624545 C16.3146364,18.6988182 16.281,18.7324545 16.2446364,18.7324545 L10.3755455,18.7324545 L10.3755455,11.6097273 L16.3146364,11.6097273 L16.3146364,18.6624545 Z M9.01190909,18.7324545 L3.14372727,18.7324545 C3.10645455,18.7324545 3.07372727,18.6988182 3.07372727,18.6624545 L3.07372727,11.6097273 L9.01190909,11.6097273 L9.01190909,18.7324545 Z M6.711,1.36336364 C7.94918182,1.36336364 8.95554545,2.37063636 8.95554545,3.60790909 L8.95554545,5.85245455 L6.711,5.85245455 C5.47372727,5.85245455 4.46645455,4.84518182 4.46645455,3.60790909 C4.46645455,2.37063636 5.47372727,1.36336364 6.711,1.36336364 L6.711,1.36336364 Z M10.3755455,4.95790909 C10.3755455,3.86972727 11.261,2.98518182 12.3491818,2.98518182 C13.4382727,2.98518182 14.3228182,3.86972727 14.3228182,4.95790909 C14.3228182,5.36063636 14.1973636,5.73063636 13.9882727,6.04154545 L10.3755455,6.04154545 L10.3755455,4.95790909 Z M17.8655455,6.04154545 L15.4928182,6.04154545 C15.6128182,5.70154545 15.6864545,5.33972727 15.6864545,4.95790909 C15.6864545,3.11790909 14.1891818,1.62063636 12.3491818,1.62063636 C11.491,1.62063636 10.7155455,1.95609091 10.1237273,2.49063636 C9.65009091,1.04972727 8.30827273,-0.000272727273 6.711,-0.000272727273 C4.72190909,-0.000272727273 3.10281818,1.61881818 3.10281818,3.60790909 C3.10281818,4.55245455 3.47736364,5.40245455 4.07554545,6.04154545 L1.52281818,6.04154545 C0.682818182,6.04154545 9.09090909e-05,6.72518182 9.09090909e-05,7.56518182 L9.09090909e-05,10.087 C9.09090909e-05,10.927 0.682818182,11.6097273 1.52281818,11.6097273 L1.71009091,11.6097273 L1.71009091,18.6624545 C1.71009091,19.4533636 2.35281818,20.0960909 3.14372727,20.0960909 L16.2446364,20.0960909 C17.0355455,20.0960909 17.6782727,19.4533636 17.6782727,18.6624545 L17.6782727,11.6097273 L17.8655455,11.6097273 C18.7055455,11.6097273 19.3882727,10.927 19.3882727,10.087 L19.3882727,7.56518182 C19.3882727,6.72518182 18.7055455,6.04154545 17.8655455,6.04154545 L17.8655455,6.04154545 Z"
+															id="Fill-1"
+															fill="#FFFFFF"
+															mask="url(#mask-2)"
+														></path>
+													</g>
+												</g>
+											</g>
+										</svg>
+									</a>
+								</span>
+							</div>
+							<div class="nav-element">
+								<span class="notifications">
+									<button class="notifications-menu" aria-haspopup="true" aria-expanded="false" aria-label="Notifications">
+										<span class="icon-button-notification"></span><span class="notification-pill">9+</span>
+									</button>
+								</span>
+							</div>
+							<div class="nav-element">
+								<div class="account-menu-item">
+									<div class="account-dropdown-button">
+										<a href="/" role="button" tabindex="0" aria-haspopup="true" aria-expanded="false" aria-label="banner.nz – account &amp; settings">
+											<span class="profile-link" role="presentation">
+												<img
+													class="profile-icon"
+													src="https://occ-0-542-2598.1.nflxso.net/dnm/api/v6/Z-WHgqd_TeJxSuha8aZ5WpyLcX8/AAAABbU3UHUlkChqMS0UORybrasISolcRmk12xz3v84eycdFXFb0OpRQn-eS1DPXHPfnedUm2GsZylJOXOpNbDjSDMw.png?r=a41"
+													alt=""
+												/>
+											</span>
+										</a>
+										<span class="caret" role="presentation"></span>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</header>
+		<main>
+			<div id="featured">
+				<div class="featured">
+					<h2>Title</h2>
+					<div class="featured__buttons">
+						<button class="button__play"><i class="fas fa-play"></i>Play</button>
+						<button>My List</button>
+					</div>
+					<div class="featured__description">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam tristique magna magna, vit...</div>
+				</div>
+			</div>
+			<div class="movies userFavourites">
+				<div class="original__header">USER FAVOURITES</div>
+				<div class="movies__container original__movies movieSliders">
+					<!-- <img src="https://image.tmdb.org/t/p/original/scZlQQYnDVlnpxFTxaIv2g0BWnL.jpg"> -->
+				</div>
+			</div>
+			<!-- <div class="movies myList">
+				<div class="original__header">My List</div>
+				<div class="movies__container original__movies movieSliders">
+					<img src="https://image.tmdb.org/t/p/original/scZlQQYnDVlnpxFTxaIv2g0BWnL.jpg">
+				</div>
+			</div> -->
+			<div class="movies netflixOriginals">
+				<div class="original__header">NETFLIX ORIGINALS</div>
+				<div class="movies__container original__movies movieSliders">
+					<!-- <img src="https://image.tmdb.org/t/p/original/scZlQQYnDVlnpxFTxaIv2g0BWnL.jpg"> -->
+				</div>
+			</div>
+			<div class="movies trendingNow">
+				<div class="original__header">Trending Now</div>
+				<div class="movies__container trendingNow movieSliders">
+					<!-- <img src="https://image.tmdb.org/t/p/original/scZlQQYnDVlnpxFTxaIv2g0BWnL.jpg"> -->
+				</div>
+			</div>
+			<div class="movies topRated">
+				<div class="original__header">Top Rated</div>
+				<div class="movies__container movieSliders">
+					<!-- <img src="https://image.tmdb.org/t/p/original/scZlQQYnDVlnpxFTxaIv2g0BWnL.jpg"> -->
+				</div>
+			</div>
+			<!-- <div class="movies reconmended">
+				<div class="original__header">Reconmended</div>
+				<div class="movies__container original__movies movieSliders">
+					<img src="https://image.tmdb.org/t/p/original/scZlQQYnDVlnpxFTxaIv2g0BWnL.jpg">
+				</div>
+			</div> -->
+			<div class="movies action">
+				<div class="original__header">Action</div>
+				<div class="movies__container original__movies movieSliders">
+					<!-- <img src="https://image.tmdb.org/t/p/original/scZlQQYnDVlnpxFTxaIv2g0BWnL.jpg"> -->
+				</div>
+			</div>
+			<div class="movies adventure">
+				<div class="original__header">Adventure</div>
+				<div class="movies__container original__movies movieSliders">
+					<!-- <img src="https://image.tmdb.org/t/p/original/scZlQQYnDVlnpxFTxaIv2g0BWnL.jpg"> -->
+				</div>
+			</div>
+		</main>
+		<script type="text/javascript" src="//code.jquery.com/jquery-1.11.0.min.js"></script>
+		<script type="text/javascript" src="//code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
+		<script type="text/javascript" src="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
+		<script type="text/javascript">
+			// When the user scrolls the page, execute myFunction
+			window.onscroll = function () {
+				myFunction();
+			};
+
+			// Get the navbar
+			var navbar = document.getElementById('navbar');
+
+			// Get the offset position of the navbar
+			var sticky = navbar.offsetTop;
+
+			// Add the sticky class to the navbar when you reach its scroll position. Remove "sticky" when you leave the scroll position
+			function myFunction() {
+				if (window.pageYOffset >= 1) {
+					navbar.classList.add('sticky');
+				} else {
+					navbar.classList.remove('sticky');
+				}
+			}
+		</script>
+	</body>
+</html>
+
+<!--
+Popular on Netflix
+Trending now
+My List
+Top 10 in [country]
+Watch it Again.....
+Continue watching for [username]
+Action & Adventure
+Because you watched [movie/series]
+Comedies
+Crime Movies
+Because you liked [movie/series]
+Netflix Originals
+Romantic Movies
+Because you liked [movie/series]
+Because you watched The Hunt for Red October
+Thriller Movies
+New releases
+Familiar Favorites
+Because you watched [movie/series]
+
+<ul>
+	<li>Action &amp; Adventure: 1365</li>
+	<li>Action Comedies: 43040</li>
+	<li>Action Sci-Fi &amp; Fantasy: 1568</li>
+	<li>Action Thrillers: 43048</li>
+	<li>Adult Animation: 11881</li>
+	<li>Adventures: 7442</li>
+	<li>African Movies: 3761</li>
+	<li>Alien Sci-Fi: 3327</li>
+	<li>Animal Tales: 5507</li>
+	<li>Anime: 7424</li>
+	<li>Anime Action: 2653</li>
+	<li>Anime Comedies: 9302</li>
+	<li>Anime Dramas: 452</li>
+	<li>Anime Fantasy: 11146</li>
+	<li>Anime Features: 3063</li>
+	<li>Anime Horror: 10695</li>
+	<li>Anime Sci-Fi: 2729</li>
+	<li>Anime Series: 6721</li>
+	<li>Art House Movies: 29764</li>
+	<li>Asian Action Movies: 77232</li>
+	<li>Australian Movies: 5230</li>
+	<li>B-Horror Movies: 8195</li>
+	<li>Baseball Movies: 12339</li>
+	<li>Basketball Movies: 12762</li>
+	<li>Belgian Movies: 262</li>
+	<li>Biographical Docs: 3652</li>
+	<li>Biographical Dramas: 3179</li>
+	<li>Boxing Movies: 12443</li>
+	<li>British Movies: 10757</li>
+	<li>British TV Shows: 52117</li>
+	<li>Campy Movies: 1252</li>
+	<li>Children &amp; Family Movies: 783</li>
+	<li>Chinese Movies: 3960</li>
+	<li>Classic Action &amp; Adventure: 46576</li>
+	<li>Classic Comedies: 31694</li>
+	<li>Classic Dramas: 29809</li>
+	<li>Classic Foreign Movies: 32473</li>
+	<li>Classic Movies: 31574</li>
+	<li>Classic Musicals: 32392</li>
+	<li>Classic Romantic Movies: 31273</li>
+	<li>Classic Sci-Fi &amp; Fantasy: 47147</li>
+	<li>Classic Thrillers: 46588</li>
+	<li>Classic TV Shows: 46553</li>
+	<li>Classic War Movies: 48744</li>
+	<li>Classic Westerns: 47465</li>
+	<li>Comedies: 6548</li>
+	<li>Comic Book and Superhero: 10118</li>
+	<li>Country &amp; Western/Folk: 1105</li>
+	<li>Courtroom Dramas: 2748</li>
+	<li>Creature Features: 6895</li>
+	<li>Crime Action &amp; Adventure: 9584</li>
+	<li>Crime Documentaries: 9875</li>
+	<li>Crime Dramas: 6889</li>
+	<li>Crime Thrillers: 10499</li>
+	<li>Crime TV Shows: 26146</li>
+	<li>Cult Comedies: 9434</li>
+	<li>Cult Horror Movies: 10944</li>
+	<li>Cult Movies: 7627</li>
+	<li>Cult Sci-Fi &amp; Fantasy: 4734</li>
+	<li>Cult TV Shows: 74652</li>
+	<li>Dark Comedies: 869</li>
+	<li>Deep Sea Horror Movies: 45028</li>
+	<li>Disney: 67673</li>
+	<li>Disney Musicals: 59433</li>
+	<li>Documentaries: 6839</li>
+	<li>Dramas: 5763</li>
+	<li>Dramas based on Books: 4961</li>
+	<li>Dramas based on real life: 3653</li>
+	<li>Dutch Movies: 10606</li>
+	<li>Eastern European Movies: 5254</li>
+	<li>Education for Kids: 10659</li>
+	<li>Epics: 52858</li>
+	<li>Experimental Movies: 11079</li>
+	<li>Faith &amp; Spirituality: 26835</li>
+	<li>Faith &amp; Spirituality Movies: 52804</li>
+	<li>Family Features: 51056</li>
+	<li>Fantasy Movies: 9744</li>
+	<li>Film Noir: 7687</li>
+	<li>Food &amp; Travel TV: 72436</li>
+	<li>Football Movies: 12803</li>
+	<li>Foreign Action &amp; Adventure: 11828</li>
+	<li>Foreign Comedies: 4426</li>
+	<li>Foreign Documentaries: 5161</li>
+	<li>Foreign Dramas: 2150</li>
+	<li>Foreign Gay &amp; Lesbian Movies: 8243</li>
+	<li>Foreign Horror Movies: 8654</li>
+	<li>Foreign Movies: 7462</li>
+	<li>Foreign Sci-Fi &amp; Fantasy: 6485</li>
+	<li>Foreign Thrillers: 10306</li>
+	<li>French Movies: 58807</li>
+	<li>Gangster Movies: 31851</li>
+	<li>Gay &amp; Lesbian Dramas: 500</li>
+	<li>German Movies: 58886</li>
+	<li>Greek Movies: 61115</li>
+	<li>Historical Documentaries: 5349</li>
+	<li>Horror Comedy: 89585</li>
+	<li>Horror Movies: 8711</li>
+	<li>Independent Action &amp; Adventure: 11804</li>
+	<li>Independent Comedies: 4195</li>
+	<li>Independent Dramas: 384</li>
+	<li>Independent Movies: 7077</li>
+	<li>Independent Thrillers: 3269</li>
+	<li>Indian Movies: 10463</li>
+	<li>Irish Movies: 58750</li>
+	<li>Italian Movies: 8221</li>
+	<li>Japanese Movies: 10398</li>
+	<li>Jazz &amp; Easy Listening: 10271</li>
+	<li>Kids Faith &amp; Spirituality: 751423</li>
+	<li>Kids Music: 52843</li>
+	<li>Kids’ TV: 27346</li>
+	<li>Korean Movies: 5685</li>
+	<li>Korean TV Shows: 67879</li>
+	<li>Late Night Comedies: 1402</li>
+	<li>Latin American Movies: 1613</li>
+	<li>Latin Music: 10741</li>
+	<li>Martial Arts Movies: 8985</li>
+	<li>Martial Arts, Boxing &amp; Wrestling: 6695</li>
+	<li>Middle Eastern Movies: 5875</li>
+	<li>Military Action &amp; Adventure: 2125</li>
+	<li>Military Documentaries: 4006</li>
+	<li>Military Dramas: 11</li>
+	<li>Military TV Shows: 25804</li>
+	<li>Miniseries: 4814</li>
+	<li>Mockumentaries: 26</li>
+	<li>Monster Movies: 947</li>
+	<li>Movies based on children’s books: 10056</li>
+	<li>Movies for ages 0 to 2: 6796</li>
+	<li>Movies for ages 2 to 4: 6218</li>
+	<li>Movies for ages 5 to 7: 5455</li>
+	<li>Movies for ages 8 to 10: 561</li>
+	<li>Movies for ages 11 to 12: 6962</li>
+	<li>Music &amp; Concert Documentaries: 90361</li>
+	<li>Music: 1701</li>
+	<li>Musicals: 13335</li>
+	<li>Mysteries: 9994</li>
+	<li>New Zealand Movies: 63782</li>
+	<li>Period Pieces: 12123</li>
+	<li>Political Comedies: 2700</li>
+	<li>Political Documentaries: 7018</li>
+	<li>Political Dramas: 6616</li>
+	<li>Political Thrillers: 10504</li>
+	<li>Psychological Thrillers: 5505</li>
+	<li>Quirky Romance: 36103</li>
+	<li>Reality TV: 9833</li>
+	<li>Religious Documentaries: 10005</li>
+	<li>Rock &amp; Pop Concerts: 3278</li>
+	<li>Romantic Comedies: 5475</li>
+	<li>Romantic Dramas: 1255</li>
+	<li>Romantic Favorites: 502675</li>
+	<li>Romantic Foreign Movies: 7153</li>
+	<li>Romantic Independent Movies: 9916</li>
+	<li>Romantic Movies: 8883</li>
+	<li>Russian: 11567</li>
+	<li>Satanic Stories: 6998</li>
+	<li>Satires: 4922</li>
+	<li>Scandinavian Movies: 9292</li>
+	<li>Sci-Fi &amp;amp; Fantasy: 1492</li>
+	<li>Sci-Fi Adventure: 6926</li>
+	<li>Sci-Fi Dramas: 3916</li>
+	<li>Sci-Fi Horror Movies: 1694</li>
+	<li>Sci-Fi Thrillers: 11014</li>
+	<li>Science &amp; Nature Documentaries: 2595</li>
+	<li>Science &amp; Nature TV: 52780</li>
+	<li>Screwball Comedies: 9702</li>
+	<li>Showbiz Dramas: 5012</li>
+	<li>Showbiz Musicals: 13573</li>
+	<li>Silent Movies: 53310</li>
+	<li>Slapstick Comedies: 10256</li>
+	<li>Slasher and Serial Killer Movies: 8646</li>
+	<li>Soccer Movies: 12549</li>
+	<li>Social &amp; Cultural Documentaries: 3675</li>
+	<li>Social Issue Dramas: 3947</li>
+	<li>Southeast Asian Movies: 9196</li>
+	<li>Spanish Movies: 58741</li>
+	<li>Spiritual Documentaries: 2760</li>
+	<li>Sports &amp; Fitness: 9327</li>
+	<li>Sports Comedies: 5286</li>
+	<li>Sports Documentaries: 180</li>
+	<li>Sports Dramas: 7243</li>
+	<li>Sports Movies: 4370</li>
+	<li>Spy Action &amp; Adventure: 10702</li>
+	<li>Spy Thrillers: 9147</li>
+	<li>Stage Musicals: 55774</li>
+	<li>Stand-up Comedy: 11559</li>
+	<li>Steamy Romantic Movies: 35800</li>
+	<li>Steamy Thrillers: 972</li>
+	<li>Supernatural Horror Movies: 42023</li>
+	<li>Supernatural Thrillers: 11140</li>
+	<li>Tearjerkers: 6384</li>
+	<li>Teen Comedies: 3519</li>
+	<li>Teen Dramas: 9299</li>
+	<li>Teen Screams: 52147</li>
+	<li>Teen TV Shows: 60951</li>
+	<li>Thrillers: 8933</li>
+	<li>Travel &amp; Adventure Documentaries: 1159</li>
+	<li>TV Action &amp; Adventure: 10673</li>
+	<li>TV Cartoons: 11177</li>
+	<li>TV Comedies: 10375</li>
+	<li>TV Documentaries: 10105</li>
+	<li>TV Dramas: 11714</li>
+	<li>TV Horror: 83059</li>
+	<li>TV Mysteries: 4366</li>
+	<li>TV Sci-Fi &amp; Fantasy: 1372</li>
+	<li>TV Shows: 83</li>
+	<li>Urban &amp; Dance Concerts: 9472</li>
+	<li>Vampire Horror Movies: 75804</li>
+	<li>Werewolf Horror Movies: 75930</li>
+	<li>Westerns: 7700</li>
+	<li>World Music Concerts: 2856</li>
+	<li>Zombie Horror Movies: 75405</li>
+</ul>
+
+<ul>
+	<li>British Christmas Children &amp; Family Films – 1527064</li>
+	<li>Canadian Christmas Children &amp; Family Films – 1721544</li>
+	<li>Christmas Children &amp; Family Films&nbsp; – 1474017</li>
+	<li>Christmas Children &amp; Family Films for ages 5 to 7 – 1477201</li>
+	<li>Christmas Children &amp; Family Films for ages 8 to 10 – 1477204</li>
+	<li>Christmas Children &amp; Family Films for ages 11 to 12 – 1477206</li>
+	<li>Christmas Children &amp; Family Films from the 1990s – 1476024</li>
+	<li>Christmas Children &amp; Family Films from the 1990s – 147602</li>
+	<li>European Christmas Children &amp; Family Films – 1527063</li>
+	<li>Family-friendly Christmas Films – 1394522</li>
+	<li>Feel-good Christmas Children &amp; Family Films – 1475066</li>
+	<li>Goofy Christmas Children &amp; Family Films – 1475071</li>
+	<li>Romantic Christmas Films – 394527</li>
+</ul>
+
+ -->
